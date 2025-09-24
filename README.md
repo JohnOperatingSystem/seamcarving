@@ -19,7 +19,4 @@ This project implements content-aware image resizing using the seam carving algo
   - `remove_seam()`: Removes the identified vertical seam from the image.
   - `main()`: Reads the input image, iteratively removes 100 seams, and writes the final output.
 
-## Usage
-1. Compile:
-   ```bash
-   gcc seamcarving.c c_img.c -o seamcarving -lm
+
