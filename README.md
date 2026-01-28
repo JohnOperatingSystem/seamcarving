@@ -1,22 +1,31 @@
-# Seam Carving in C
+# Seamcarving Image Resizer
 
-This project implements content-aware image resizing using the seam carving algorithm. It reads binary RGB images, calculates pixel energy, finds minimum-energy vertical seams with dynamic programming, removes them, and repeats to reduce image width while preserving important content.
+## Description
+This project implements **Seam Carving** for content-aware image resizing. The program removes low-energy vertical seams from an image to reduce its width while keeping important features intact.
+
+**Steps:**
+1. Compute **energy map** using dual-gradient (RGB differences).
+2. Use **dynamic programming** to find the minimum-energy vertical seam.
+3. Remove the seam from the image.
+4. Repeat for a specified number of seams.
 
 ## Files
-- **c_img.c / c_img.h**: Handles RGB image operations.
-  - `create_img()`: Allocates memory for a new image.
-  - `read_in_img()`: Reads a binary RGB image from a file.
-  - `write_img()`: Writes an RGB image to a file.
-  - `get_pixel()`: Returns the value of a pixel at a given coordinate and color channel.
-  - `set_pixel()`: Sets the RGB values of a pixel.
-  - `destroy_image()`: Frees allocated memory for an image.
-  - `print_grad()`: Prints a gradient image (used for debugging).
+- `seamcarving.c / seamcarving.h` – Core functions:
+  - `calc_energy()`
+  - `dynamic_seam()`
+  - `recover_path()`
+  - `remove_seam()`
+- `c_img.c / c_img.h` – Image handling:
+  - `create_img()`, `destroy_image()`
+  - `read_in_img()`, `write_img()`
+  - `get_pixel()`, `set_pixel()`
+- `main.c` – Program entry point: loops over seam removal iterations.
 
-- **seamcarving.c**: Implements seam carving logic.
-  - `calc_energy()`: Computes the energy map of an image using the gradient magnitude of RGB channels.
-  - `dynamic_seam()`: Uses dynamic programming to compute the cumulative minimum energy for vertical seams.
-  - `recover_path()`: Backtracks the dynamic programming table to recover the lowest-energy vertical seam.
-  - `remove_seam()`: Removes the identified vertical seam from the image.
-  - `main()`: Reads the input image, iteratively removes 100 seams, and writes the final output.
+## Input & Output
+- **Input image**: Raw binary format containing:
+  - 2-byte height
+  - 2-byte width
+  - RGB raster data (3 bytes per pixel)  
+  Example: `"sample.bin"`  
 
-
+- **Output image**: Raw binary file `"final_image.bin"`
